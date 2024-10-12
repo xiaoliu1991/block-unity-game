@@ -25,7 +25,7 @@
     
     ![把这个地址写到`WebThreeManager`下的中](./screenshot/1.jpg)
 
-![开始游戏](./screenshot/2.png)
-![捡苹果](./screenshot/3.png)
-![打开商店](./screenshot/4.png)
-![兑换金币](./screenshot/5.png)
+![开始游戏](./screenshot/2.jpg)
+![捡苹果](./screenshot/3.jpg)
+![打开商店](./screenshot/4.jpg)
+![兑换金币](./screenshot/5.jpg)
