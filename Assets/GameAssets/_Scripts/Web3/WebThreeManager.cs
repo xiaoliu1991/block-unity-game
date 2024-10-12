@@ -25,7 +25,7 @@ public class WebThreeManager : Singleton<WebThreeManager>
     }
    
     
-    private async Task CheckBlockNumberPeriodically(string url)
+    private async Task CheckBlockNumberPeriodically()
     {
         var blockNumber = await mWeb3.Eth.Blocks.GetBlockNumber.SendRequestAsync();
         Debug.LogError($"Chain blockNumber : {blockNumber}");
