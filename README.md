@@ -19,9 +19,11 @@
     
     部署后控制台打印合约地址，初次部署是这个地址：
     
-    -GameResToken合约地址：0x5FbDB2315678afecb367f032d93F642f64180aa3
-    -GameItemsToken合约地址：0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-    -GameShop合约地址：0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+    GameResToken合约地址：0x5FbDB2315678afecb367f032d93F642f64180aa3
+    
+    GameItemsToken合约地址：0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+    
+    GameShop合约地址：0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
     
     ![把这个地址写到`WebThreeManager`下的中](./screenshot/1.jpg)
 
