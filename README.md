@@ -11,7 +11,7 @@
 1. nodejs
 
 #### 项目配置
-1. 依赖安装 `yarn`
+1. 进入到./Solidity/MyHardhat 依赖安装 `yarn`
 2. 启动本地链 `npx hardhat node`
 3. 部署合约（本地） 【这步骤生产环境中用管理员账号进行部署】
     
