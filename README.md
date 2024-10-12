@@ -23,10 +23,9 @@
     -GameItemsToken合约地址：0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
     -GameShop合约地址：0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
     
-    把这个地址写到`WebThreeManager`下的中(./screenshot/1.jpg)
+    ![把这个地址写到`WebThreeManager`下的中](./screenshot/1.jpg)
 
-
-开始游戏(./screenshot/2.jpg)
-捡苹果(./screenshot/3.jpg)
-打开商店(./screenshot/4.jpg)
-兑换金币(./screenshot/5.jpg)
+![开始游戏](./screenshot/2.png)
+![捡苹果](./screenshot/3.png)
+![打开商店](./screenshot/4.png)
+![兑换金币](./screenshot/5.png)
