@@ -7,30 +7,28 @@ using UnityEngine;
 
 public class GameShop
 {
-    // private const string CONTRACT_ADDRESS = "0x504f06dcc84E5d0f5e95a3239f933A7E9a69c265";
-    private const string CONTRACT_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";//local
-    
-    // private const string MANAGER_ADDRESS = "0xe98a897299cea70f9b86d7800640E4b0568b1015";
-    private const string MANAGER_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";//local
-    
     private Web3 mWeb3;
     private Account mAccount;
-
-    public GameShop(Web3 web3, Account account)
+    private string mContractAddress;
+    private string mContractDeployAddress;
+    
+    public GameShop(Web3 web3, Account account,string contractAddress,string deployAddress)
     {
         mWeb3 = web3;
         mAccount = account;
+        mContractAddress = contractAddress;
+        mContractDeployAddress = deployAddress;
     }
 
     public string GetAddress()
     {
-        return CONTRACT_ADDRESS;
+        return mContractAddress;
     }
     
     public async Task<List<BigInteger>> GetGoods()
     {
         var fun = mWeb3.Eth.GetContractQueryHandler<ShopGetGoodsFunction>();
-        var result = await fun.QueryAsync<List<BigInteger>>(CONTRACT_ADDRESS, new ShopGetGoodsFunction());
+        var result = await fun.QueryAsync<List<BigInteger>>(mContractAddress, new ShopGetGoodsFunction());
         Debug.LogError($"GetGoods :{string.Join(",",result)}");
         return result;
     }
@@ -38,7 +36,7 @@ public class GameShop
     public async Task<int> GetPrice(int id)
     {
         var fun = mWeb3.Eth.GetContractQueryHandler<ShopGetPriceFunction>();
-        var result = await fun.QueryAsync<BigInteger>(CONTRACT_ADDRESS, new ShopGetPriceFunction()
+        var result = await fun.QueryAsync<BigInteger>(mContractAddress, new ShopGetPriceFunction()
         {
             FromAddress = mAccount.Address,
             Id = id
@@ -51,9 +49,9 @@ public class GameShop
     public async Task SetPrice(int id,int price)
     {
         var fun = mWeb3.Eth.GetContractTransactionHandler<ShopSetPriceFunction>();
-        var result = await fun.SendRequestAndWaitForReceiptAsync(CONTRACT_ADDRESS, new ShopSetPriceFunction()
+        var result = await fun.SendRequestAndWaitForReceiptAsync(mContractAddress, new ShopSetPriceFunction()
         {
-            FromAddress = MANAGER_ADDRESS,
+            FromAddress = mContractDeployAddress,
             Id = id,
             Price = price
         });
@@ -68,7 +66,7 @@ public class GameShop
         await WebThreeManager.Instance.Erc1155.ApproveAllByShop();
         
         var fun = mWeb3.Eth.GetContractTransactionHandler<ShopBuyFunction>();
-        var receipt = await fun.SendRequestAndWaitForReceiptAsync(CONTRACT_ADDRESS, new ShopBuyFunction()
+        var receipt = await fun.SendRequestAndWaitForReceiptAsync(mContractAddress, new ShopBuyFunction()
         {
             FromAddress = mAccount.Address,
             Id = id,

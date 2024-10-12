@@ -8,25 +8,23 @@ using UnityEngine;
 
 public class GameERC1155
 {
-    // private const string CONTRACT_ADDRESS = "0x4eCfD6643c46569032bCf720774940f0c95B034C";
-    private const string CONTRACT_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";//local
-    
-    // private const string MANAGER_ADDRESS = "0xe98a897299cea70f9b86d7800640E4b0568b1015";
-    private const string MANAGER_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";//local
-    
     private Web3 mWeb3;
     private Account mAccount;
+    private string mContractAddress;
+    private string mContractDeployAddress;
 
-    public GameERC1155(Web3 web3, Account account)
+    public GameERC1155(Web3 web3, Account account,string contractAddress,string deployAddress)
     {
         mWeb3 = web3;
         mAccount = account;
+        mContractAddress = contractAddress;
+        mContractDeployAddress = deployAddress;
     }
 
     public async Task<int> GetStock(int id)
     {
         var balanceHandler = mWeb3.Eth.GetContractQueryHandler<BalanceOfFunction>();
-        var balanceOf = await balanceHandler.QueryAsync<int>(CONTRACT_ADDRESS, new BalanceOfFunction(){Account = MANAGER_ADDRESS,Id = id});
+        var balanceOf = await balanceHandler.QueryAsync<int>(mContractAddress, new BalanceOfFunction(){Account = mContractDeployAddress,Id = id});
         return balanceOf;
     }
     
@@ -34,7 +32,7 @@ public class GameERC1155
     public async Task<int> GetCount(int id)
     {
         var balanceHandler = mWeb3.Eth.GetContractQueryHandler<BalanceOfFunction>();
-        var balanceOf = await balanceHandler.QueryAsync<int>(CONTRACT_ADDRESS, new BalanceOfFunction(){Account = mAccount.Address,Id = id});
+        var balanceOf = await balanceHandler.QueryAsync<int>(mContractAddress, new BalanceOfFunction(){Account = mAccount.Address,Id = id});
         return balanceOf;
     }
     
@@ -44,7 +42,7 @@ public class GameERC1155
         var web3 = new Web3();
         var storeAddress = WebThreeManager.Instance.Shop.GetAddress();
         var fun = web3.Eth.GetContractTransactionHandler<SetApprovalForAllFunction>();
-        var receipt = await fun.SendRequestAndWaitForReceiptAsync(CONTRACT_ADDRESS, new SetApprovalForAllFunction()
+        var receipt = await fun.SendRequestAndWaitForReceiptAsync(mContractAddress, new SetApprovalForAllFunction()
         {
             FromAddress = account.Address,
             Operator = storeAddress,
@@ -57,7 +55,7 @@ public class GameERC1155
     {
         var storeAddress = WebThreeManager.Instance.Shop.GetAddress();
         var fun = mWeb3.Eth.GetContractTransactionHandler<SetApprovalForAllFunction>();
-        var receipt = await fun.SendRequestAndWaitForReceiptAsync(CONTRACT_ADDRESS, new SetApprovalForAllFunction()
+        var receipt = await fun.SendRequestAndWaitForReceiptAsync(mContractAddress, new SetApprovalForAllFunction()
         {
             FromAddress = mAccount.Address,
             Operator = storeAddress,
